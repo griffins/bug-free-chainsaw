@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col m-auto" style="max-width:400px">
                 <div class="text-center my-4">
-                    <img src="{{ asset('logo.svg') }}" height="64" alt="">
+                    <img src="{{ asset('logo.png') }}" height="64" alt="">
                     <h4 class="my-3">{{ config('app.name') }}</h4>
                 </div>
                 <form class="card card-md" action="{{ route('login') }}" method="post">

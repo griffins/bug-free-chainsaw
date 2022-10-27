@@ -7,7 +7,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-                <img src="{{ asset('logo.svg') }}" height="32" alt="Logo" class="navbar-brand-image">
+                <img src="{{ asset('logo.png') }}" height="32" alt="Logo" class="navbar-brand-image">
                 <span>
                &nbsp; {{ config('app.name') }}
                </span>
