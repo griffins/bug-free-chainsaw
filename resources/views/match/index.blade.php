@@ -38,6 +38,9 @@
                         Away Team
                     </th>
                     <th>
+                        Match Time
+                    </th>
+                    <th>
                        3 Way Odds
                     </th>
                 </tr>
@@ -49,6 +52,7 @@
                         <td>{{$match->competition}}</td>
                         <td>{{$match->home_team}}</td>
                         <td>{{$match->away_team}}</td>
+                        <td>In {{ $match->starts_at->diffForHumans(null,true)}}</td>
                         <td><span class="badge bg-success">{{odd_format($match->home_team_odds,2)}} </span> - <span class="badge bg-primary">{{odd_format($match->draw_odds,2)}}</span> - <span class="badge bg-danger">{{odd_format($match->away_team_odds,2)}}</span></td>
                     </tr>   
                 @endforeach

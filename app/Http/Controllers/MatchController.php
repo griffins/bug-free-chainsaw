@@ -26,6 +26,7 @@ class MatchController extends Controller
                                  $request->odds['away'])));
                             }
                         },'>=',3)
+                        ->orderBy('starts_at')
                         ->with('odds')
                         ->paginate(50);
         return view('match.index', compact('programs','matches'));
