@@ -6,6 +6,7 @@ composer install --no-interaction
 php artisan migrate --force --step
 php artisan horizon:terminate
 php artisan view:clear
+bphp artisan ook:update
 rm -rf storage/logs/*.log
 EOF
 
