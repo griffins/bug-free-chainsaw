@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PasswordRequest;
-use App\Http\Requests\ProfileRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
@@ -21,10 +20,10 @@ class ProfileController extends Controller
     /**
      * Change the password
      *
-     * @param \App\Http\Requests\PasswordRequest $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function password(PasswordRequest $request)
+    public function password(Request $request)
     {
         auth()->user()->update(['password' => Hash::make($request->get('password'))]);
 
@@ -34,10 +33,10 @@ class ProfileController extends Controller
     /**
      * Update the profile
      *
-     * @param \App\Http\Requests\ProfileRequest $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(ProfileRequest $request)
+    public function update(Request $request)
     {
         auth()->user()->update($request->all());
 

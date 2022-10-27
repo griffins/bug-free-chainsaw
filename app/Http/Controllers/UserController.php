@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
+use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,11 +22,11 @@ class UserController extends Controller
     /**
      * Store a newly created user in storage
      *
-     * @param \App\Http\Requests\UserRequest $request
+     * @param \Illuminate\Http\Request $request
      * @param \App\Models\User $model
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(UserRequest $request, User $model)
+    public function store(Request $request, User $model)
     {
         $model->create($request->merge(['password' => Hash::make($request->get('password'))])->all());
 
@@ -57,11 +57,11 @@ class UserController extends Controller
     /**
      * Update the specified user in storage
      *
-     * @param \App\Http\Requests\UserRequest $request
+     * @param \Illuminate\Http\Request $request
      * @param \App\Models\User $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UserRequest $request, User $user)
+    public function update(Request $request, User $user)
     {
         $user->update($request->merge(['password' => Hash::make($request->get('password'))])
             ->except([$request->get('password') ? '' : 'password']));
