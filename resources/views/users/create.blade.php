@@ -46,23 +46,6 @@
                     </div>
                 </div>
 
-                <label class="mt-3 form-label">{{ __('Role') }}</label>
-                <div class="col-sm-7">
-                    <div class="form-group{{ $errors->has('role') ? ' has-danger' : '' }}">
-                        <select class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}"
-                                name="role" id="input-role" required>
-                            <option selected value="">Select role</option>
-                            @foreach(\App\Models\User::roles() as $id => $role)
-                                <option value="{{ $id }}">{{ $role }}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('role'))
-                            <span id="role-error"
-                                  class="error text-danger">{{ $errors->first('role') }}</span>
-                        @endif
-                    </div>
-                </div>
-
                 <label class="mt-3 form-label"
                        for="input-password">{{ __(' Password') }}</label>
                 <div class="col-sm-7">

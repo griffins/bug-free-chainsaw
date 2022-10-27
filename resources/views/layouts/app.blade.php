@@ -17,7 +17,7 @@
                 <div class="nav-item dropdown dropdown-menu-arrow">
                     <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                        aria-label="Open user menu" aria-expanded="false">
-                            <span class="avatar avatar-md"
+                            <span class="avatar"
                                   style="background-image: url(https://www.gravatar.com/avatar/{{ md5(auth()->user()->email) }}?d=retro)"></span>
                         <div class="d-none d-xl-block mx-1">
                             <div class="text-muted">{{ auth()->user()->name }}</div>
@@ -43,6 +43,7 @@
                 <div class="container-xl">
                     <ul class="navbar-nav">
                         {!! sidebar_list_item('match','Dashboard','box-multiple') !!}
+                        {!! sidebar_list_drop_down('Administration','adjustments', [['Users','user.index','users']]) !!}
                     </ul>
                 </div>
             </div>
@@ -108,7 +109,7 @@
                             <div class="col-12 col-lg-auto mt-3 mt-lg-0">
                                 Crafted with <span class="text-red icon-filled">{!! paste_icon('heart') !!}</span> by <a
                                         href="" class="link-secondary">
-                                    Scripts from Scratch.
+                                    Loopy Labs Ltd.
                                 </a>
                             </div>
                         </div>

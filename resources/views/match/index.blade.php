@@ -54,7 +54,9 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $matches->appends(request()->except('page'))->render() }}
+        <div class="mt-2">
+            {{ $matches->appends(request()->except('page'))->render() }}
+        </div>
     </div>
 @stop
 
