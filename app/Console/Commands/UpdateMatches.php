@@ -41,7 +41,7 @@ class UpdateMatches extends Command
     {
         $this->info("Updating matches from bookmaker: betika");
         (new Updater("betika"))->handle();
-        $this->info("Updating matches from bookmaker:betika");
+        $this->info("Updating matches from bookmaker: sportpesa");
         (new Updater("sportpesa"))->handle();
         return 0;
     }
