@@ -42,7 +42,8 @@
             <div class="navbar navbar-dark">
                 <div class="container-xl">
                     <ul class="navbar-nav">
-                        {!! sidebar_list_item('match','Dashboard','box-multiple') !!}
+                        {!! sidebar_list_item('match','Upcoming Matches','calendar-stats') !!}
+                        {!! sidebar_list_item('match.ended','Finished Matches','calendar-event') !!}
                         {!! sidebar_list_drop_down('Administration','adjustments', [['Users','user.index','users']]) !!}
                     </ul>
                 </div>

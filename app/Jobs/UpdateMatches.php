@@ -15,8 +15,11 @@ use Carbon\Carbon;
 
 class UpdateMatches implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
+
     public $bookmaker;
 
     /**
@@ -42,27 +45,27 @@ class UpdateMatches implements ShouldQueue
         ];
         $data =  Http::get($bookmakers[$this->bookmaker])->object();
 
-        if($this->bookmaker === 'sportpesa'){
-            \DB::transaction(function() use ($data) {
-                foreach($data as $detail){
+        if ($this->bookmaker === 'sportpesa') {
+            \DB::transaction(function () use ($data) {
+                foreach ($data as $detail) {
                     $home_team =  $detail->competitors[0]->name;
                     $away_team =  $detail->competitors[1]->name;
                     $starts_at = Carbon::parse($detail->date);
-                    $payload  = compact('home_team','away_team','starts_at');
-                    $market =  collect($detail->markets)->where('name','3 Way')->first();
+                    $payload  = compact('home_team', 'away_team', 'starts_at');
+                    $market =  collect($detail->markets)->where('name', '3 Way')->first();
                     $odds = $market->selections;
                     $this->upsertMatch('SportPesa', $payload, $detail->country->name, $detail->competition->name, $odds);
                 }
-                });
-        }
-        else if ($this->bookmaker === 'betika'){
+            });
+        } elseif ($this->bookmaker === 'betika') {
             $data = $data->data;
-            \DB::transaction(function() use ($data) {
-                foreach($data as $detail){
-                    list('home_team' => $home_team ,'away_team' => $away_team, 'category' => $category,'competition_name' => $competition) = (array) $detail;
-                    $starts_at = Carbon::parse($detail->start_time);
-                    $payload  = compact('home_team','away_team','starts_at');
-                    $odds = [
+            \DB::transaction(function () use ($data) {
+                foreach ($data as $detail) {
+                    if ($detail->sport_name === 'Soccer') {
+                        list('home_team' => $home_team, 'away_team' => $away_team, 'category' => $category, 'competition_name' => $competition) = (array) $detail;
+                        $starts_at = Carbon::parse($detail->start_time)->tz('Africa/Nairobi');
+                        $payload  = compact('home_team', 'away_team', 'starts_at');
+                        $odds = [
                         (object) [
                             "name" => $home_team,
                             "odds" =>  $detail->home_odd
@@ -76,19 +79,21 @@ class UpdateMatches implements ShouldQueue
                             "odds" =>  $detail->away_odd
                         ]
                     ];
-                    $this->upsertMatch('Betika', $payload, $category, $competition, $odds);
+                        $this->upsertMatch('Betika', $payload, $category, $competition, $odds);
+                    }
                 }
             });
         }
         return $data;
     }
 
-    public function upsertMatch($bookmaker, $payload, $category, $competition, $odds){
+    public function upsertMatch($bookmaker, $payload, $category, $competition, $odds)
+    {
         $match = Match::query()->firstOrNew($payload);
         $match->competition = $competition;
         $match->category = $category;
         $match->save();
-        foreach($odds as $selection){
+        foreach ($odds as $selection) {
             $odd = Odd::query()->firstOrNew(['name' => $selection->name, 'bookmaker' => $bookmaker, 'match_id' => $match->id]);
             $odd->val = $selection->odds;
             $match->odds()->save($odd);

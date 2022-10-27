@@ -23,6 +23,7 @@ Auth::routes(['register' => false]);
 
 Route::group(['middleware' => 'auth', 'namespace' => "\App\Http\Controllers"], function () {
     Route::get('/match', 'MatchController@index')->name('match');
+    Route::get('/match/ended', 'MatchController@ended')->name('match.ended');
     Route::group(['prefix' => 'user'], function () {
         Route::resource('user', 'UserController', ['except' => ['show']]);
         Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);

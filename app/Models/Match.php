@@ -14,19 +14,34 @@ class Match extends Model
 
     public $dates = ['starts_at'];
 
-    public function odds(){
+    public function odds()
+    {
         return $this->hasMany(Odd::class);
     }
 
-    public function getHomeTeamOddsAttribute(){
+    public function getHomeTeamOddsAttribute()
+    {
         return $this->odds->where('name', $this->home_team)->first()->val;
     }
 
-    public function getAwayTeamOddsAttribute(){
+    public function getAwayTeamOddsAttribute()
+    {
         return $this->odds->where('name', $this->away_team)->first()->val;
     }
 
-    public function getDrawOddsAttribute(){
+    public function getDrawOddsAttribute()
+    {
         return $this->odds->where('name', 'Draw')->first()->val;
+    }
+
+    public function getResultAttribute()
+    {
+        if ($this->away_team_score === $this->home_team_score) {
+            return 'Draw';
+        } elseif ($this->away_team_score > $this->home_team_score) {
+            return 'Away';
+        } else {
+            return 'Home';
+        }
     }
 }

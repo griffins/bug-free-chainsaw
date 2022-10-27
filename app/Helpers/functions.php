@@ -37,7 +37,7 @@ if (!function_exists('sidebar_active')) {
                     $classes .= $active_classes;
                 }
             }
-        } else if ($route == $current_route) {
+        } elseif ($route == $current_route) {
             $classes .= $active_classes;
         }
 
@@ -132,6 +132,6 @@ if (!function_exists('odd_format')) {
      */
     function odd_format($amount)
     {
-        return sprintf('%s', number_format($amount ,2));
+        return sprintf('%s', number_format($amount, 2));
     }
 }

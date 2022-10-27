@@ -12,7 +12,8 @@ class Odd extends Model
 
     protected $fillable = ['name','bookmaker','val'];
 
-    public function match () {
+    public function match()
+    {
         return $this->belongsTo(Match::class);
     }
 }
