@@ -7,6 +7,7 @@ php artisan migrate --force --step
 php artisan horizon:terminate
 php artisan view:clear
 php artisan book:update
+php artisan match:update
 rm -rf storage/logs/*.log
 EOF
 
