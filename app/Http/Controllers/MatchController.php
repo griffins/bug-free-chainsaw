@@ -54,6 +54,10 @@ class MatchController extends Controller
         ->when($request->competition, function ($query) use ($request) {
             $query->where('competition', $request->competition);
         })
+        ->when($request->match_date, function ($query) use ($request) {
+            $date = Carbon::parse($request->match_date)->utc();
+            $query->whereBetween('starts_at', [$date->clone()->startOfDay(),$date->endOfDay()]);
+        })
         ->whereHas('odds', function ($query) use ($request) {
             if ($request->has('odds')) {
                 $query->whereRaw(\DB::raw(sprintf(

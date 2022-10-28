@@ -10,7 +10,8 @@
     <title> {{ config('app.name') }}</title>
     @yield('css_before')
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700">
-    <link rel="stylesheet" id="css-main" href="https://preview.tabler.io/dist/css/tabler.min.css">
+    <link rel="stylesheet" href="https://preview.tabler.io/dist/css/tabler.min.css">
+    <link rel="stylesheet" href="https://preview.tabler.io/dist/css/tabler-vendors.min.css">
     @yield('css_after')
     @stack('css')
 </head>
@@ -20,6 +21,7 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://preview.tabler.io/dist/js/tabler.min.js"></script>
+<script src="https://preview.tabler.io/dist/libs/litepicker/dist/litepicker.js"></script>
 @stack('js')
 @yield('js_after')
 </body>
