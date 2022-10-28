@@ -53,9 +53,15 @@ class UpdateMatchResult implements ShouldQueue
                 $away = $detail->team2;
                 $time = Carbon::createFromTimeStampMs($detail->start_date);
                 $scores = explode(":", explode(" ", $detail->result)[0]);
-                if (count($scores) > 1) {
-                    $this->updateScores($home, $away, $time, $scores);
+                if (count($scores) === 1) {
+                    if(strpos($scores[0],'-') !== false){
+                        $scores = explode('-',$scores[0]);
+                    }else{
+                        //probably postponed match
+                        continue;
+                    }
                 }
+                $this->updateScores($home, $away, $time, $scores);
             }
         } elseif ($this->bookmaker==='betika') {
             $data = Http::get(sprintf($url, $this->date->format('Y-m-d')))->object();
@@ -82,7 +88,7 @@ class UpdateMatchResult implements ShouldQueue
         ->where('away_team', $away)
         ->where('starts_at', $time)
         ->get();
-
+        
         foreach ($matches as $match) {
             $match->status = "finished";
             $match->away_team_score = $scores[1];
