@@ -58,11 +58,7 @@ class UpdateMatchResult implements ShouldQueue
                         $scores = explode('-', $scores[0]);
                     } else {
                         if ($scores[0] === 'CAN') {
-                            if(count($scores) > 1){
-                                $this->updateScores($home, $away, $time, null, true);
-                            }else{
-                                dd($detail,$scores);
-                            }
+                            $this->updateScores($home, $away, $time, null, true);
                         } else {
                             // we don't know how to handle this. problably log it
                             continue;
@@ -96,7 +92,7 @@ class UpdateMatchResult implements ShouldQueue
         ->where('away_team', $away)
         ->where('starts_at', $time)
         ->get();
-
+        dump($scores);
         foreach ($matches as $match) {
             if ($postponed) {
                 $match->status = "cancelled";
