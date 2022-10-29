@@ -54,11 +54,11 @@ class UpdateMatchResult implements ShouldQueue
                 $time = Carbon::createFromTimeStampMs($detail->start_date);
                 $scores = explode(":", explode(" ", $detail->result)[0]);
                 if (count($scores) === 1) {
+                    dump($detail);
                     if (strpos($scores[0], '-') !== false) {
                         $scores = explode('-', $scores[0]);
                     } else {
                         if ($scores[0] === 'CAN') {
-                            dump($detail);
                             $this->updateScores($home, $away, $time, null, true);
                         } else {
                             // we don't know how to handle this. problably log it
