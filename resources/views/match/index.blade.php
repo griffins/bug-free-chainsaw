@@ -106,7 +106,7 @@
                 <tbody>
                     @foreach ($matches as $x => $match)
                         <tr>
-                            <th>{{$x+1}}</th>
+                            <td>{{$x+1}}</td>
                             <td><input type="checkbox" name="match[{{ $match->id }}]" class="form-check-input match-select"></td>
                             <td>{{$match->category}}</td>
                             <td>{{$match->competition}}</td>
