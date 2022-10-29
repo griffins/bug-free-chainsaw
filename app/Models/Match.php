@@ -36,12 +36,16 @@ class Match extends Model
 
     public function getResultAttribute()
     {
-        if ($this->away_team_score === $this->home_team_score) {
-            return 'Draw';
-        } elseif ($this->away_team_score > $this->home_team_score) {
-            return 'Away';
+        if ($this->status === 'finished') {
+            if ($this->away_team_score === $this->home_team_score) {
+                return '[Draw]';
+            } elseif ($this->away_team_score > $this->home_team_score) {
+                return '[Away]';
+            } else {
+                return '[Home]';
+            }
         } else {
-            return 'Home';
+            return '';
         }
     }
 }

@@ -46,7 +46,7 @@
                 <div class="col-lg-3 col-md-4 mt-2">
                     <label class="form-label">Date</label>
                     <div class="input-icon mb-2">
-                      <input class="form-control form-filter" name="match_date" onchange="updateFilters()" placeholder="Select a date" id="datepicker" value="{{  request('match_date', now()->utc()->startOfDay()->toDateString()) }}">
+                      <input class="form-control form-filter" name="match_date" onchange="updateFilters()" placeholder="Select a date" id="datepicker" value="{{  request('match_date') }}">
                       <span class="input-icon-addon">
                         @icon('calendar')
                       </span>
@@ -89,7 +89,7 @@
                         <td>{{$match->away_team}}</td>
                         <td>{{$match->starts_at->diffForHumans()}}</td>
                         <td><span class="badge bg-success">{{odd_format($match->home_team_odds,2)}} </span> - <span class="badge bg-primary">{{odd_format($match->draw_odds,2)}}</span> - <span class="badge bg-danger">{{odd_format($match->away_team_odds,2)}}</span></td>
-                        <td>{{$match->home_team_score}} - {{ $match->away_team_score }} [{{$match->result}}]</td>
+                        <td>{{$match->home_team_score}} - {{ $match->away_team_score }} {{$match->result}}</td>
                     </tr>   
                 @endforeach
             </tbody>

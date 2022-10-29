@@ -54,11 +54,15 @@ class UpdateMatchResult implements ShouldQueue
                 $time = Carbon::createFromTimeStampMs($detail->start_date);
                 $scores = explode(":", explode(" ", $detail->result)[0]);
                 if (count($scores) === 1) {
-                    if(strpos($scores[0],'-') !== false){
-                        $scores = explode('-',$scores[0]);
-                    }else{
-                        //probably postponed match
-                        continue;
+                    if (strpos($scores[0], '-') !== false) {
+                        $scores = explode('-', $scores[0]);
+                    } else {
+                        if ($scores[0] === 'CAN') {
+                            $this->updateScores($home, $away, $time, null, true);
+                        } else {
+                            // we don't know how to handle this. problably log it
+                            continue;
+                        }
                     }
                 }
                 $this->updateScores($home, $away, $time, $scores);
@@ -81,18 +85,22 @@ class UpdateMatchResult implements ShouldQueue
         }
     }
 
-    public function updateScores($home, $away, $time, $scores)
+    public function updateScores($home, $away, $time, $scores, $postponed = false)
     {
         $matches = Match::query()
         ->where('home_team', $home)
         ->where('away_team', $away)
         ->where('starts_at', $time)
         ->get();
-        
+
         foreach ($matches as $match) {
-            $match->status = "finished";
-            $match->away_team_score = $scores[1];
-            $match->home_team_score = $scores[0];
+            if ($postponed) {
+                $match->status = "cancelled";
+            } else {
+                $match->status = "finished";
+                $match->away_team_score = $scores[1];
+                $match->home_team_score = $scores[0];
+            }
             $match->save();
         }
     }
