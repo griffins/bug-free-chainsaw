@@ -65,6 +65,7 @@ class UpdateMatchResult implements ShouldQueue
                         }
                     }
                 }
+                dump($detail);
                 $this->updateScores($home, $away, $time, $scores);
             }
         } elseif ($this->bookmaker==='betika') {
@@ -92,7 +93,6 @@ class UpdateMatchResult implements ShouldQueue
         ->where('away_team', $away)
         ->where('starts_at', $time)
         ->get();
-        dump($scores);
         foreach ($matches as $match) {
             if ($postponed) {
                 $match->status = "cancelled";
