@@ -58,9 +58,12 @@ class UpdateMatchResult implements ShouldQueue
                         $scores = explode('-', $scores[0]);
                     } else {
                         if ($scores[0] === 'CAN') {
-                            $this->updateScores($home, $away, $time, null, true);
+                            if(count($scores) > 1){
+                                $this->updateScores($home, $away, $time, null, true);
+                            }else{
+                                dd($detail);
+                            }
                         } else {
-                            dd($detail);
                             // we don't know how to handle this. problably log it
                             continue;
                         }
