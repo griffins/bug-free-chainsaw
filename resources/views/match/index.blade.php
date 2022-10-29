@@ -79,6 +79,7 @@
             <table class="table card-table table-responsive">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>
                             <input type="checkbox" onchange="toggleChecks(this)" class="form-check-input">
                         </th>
@@ -103,8 +104,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($matches as $match)
+                    @foreach ($matches as $x => $match)
                         <tr>
+                            <th>{{$x+1}}</th>
                             <td><input type="checkbox" name="match[{{ $match->id }}]" class="form-check-input match-select"></td>
                             <td>{{$match->category}}</td>
                             <td>{{$match->competition}}</td>
