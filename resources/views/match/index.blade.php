@@ -76,7 +76,7 @@
                     </div>
                 </div>
             </div>
-            <table class="table card-table table-responsive">
+            <table class="table card-table table-responsive table-stripped">
                 <thead>
                     <tr>
                         <th>#</th>
