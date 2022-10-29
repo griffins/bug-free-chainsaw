@@ -53,7 +53,6 @@ class UpdateMatchResult implements ShouldQueue
                 $away = $detail->team2;
                 $time = Carbon::createFromTimeStampMs($detail->start_date);
                 $scores = explode(":", explode(" ", $detail->result)[0]);
-                dump($scores);
                 if (count($scores) === 1) {
                     if (strpos($scores[0], '-') !== false) {
                         $scores = explode('-', $scores[0]);
@@ -62,8 +61,8 @@ class UpdateMatchResult implements ShouldQueue
                             $this->updateScores($home, $away, $time, null, true);
                         } else {
                             // we don't know how to handle this. problably log it
-                            continue;
                         }
+                        continue;
                     }
                 }
                 $this->updateScores($home, $away, $time, $scores);
