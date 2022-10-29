@@ -61,7 +61,7 @@ class UpdateMatchResult implements ShouldQueue
                             if(count($scores) > 1){
                                 $this->updateScores($home, $away, $time, null, true);
                             }else{
-                                dd($detail);
+                                dd($detail,$scores);
                             }
                         } else {
                             // we don't know how to handle this. problably log it
