@@ -43,7 +43,16 @@
                                 <label for="floatingSelect">Competition</label>
                             </div>
                         </div>
-                        <div class="col-lg-5 col-md-6 mt-2">
+                        <div class="col-lg-3 col-md-4 mt-2">
+                            <label class="form-label">Date</label>
+                            <div class="input-icon mb-2">
+                              <input class="form-control form-filter" name="match_date" onchange="updateFilters()" placeholder="Select a date" id="datepicker" value="{{  request('match_date') }}">
+                              <span class="input-icon-addon">
+                                @icon('calendar')
+                              </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mt-2">
                             <label class="form-label">Odds Over</label>
                             <div class="input-group">
                                 <span class="input-group-text"> 1 </span>
@@ -54,7 +63,7 @@
                                 <input type="number" class="form-control form-filter" name="odds[away]" onchange="updateFilters(this)" placeholder="Away Team Odds" value="{{ request('odds')['away'] ?? 0}}">
                             </div>
                         </div>
-                    <div class="col-lg-6 col-md-6 mt-2">
+                    <div class="col mt-2">
                         <div class="form-label">Your arbitrage choices</div>
                         <div class="d-flex flex-colums">
                             <div class="mt-2">
@@ -127,6 +136,21 @@
 
 @section('js_after')
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    	    window.Litepicker && (new Litepicker({
+                element: document.getElementById('datepicker'),
+                autoRefresh: true,
+                buttonText: {
+                    previousMonth: `@icon('chevron-left')`,
+                    nextMonth: `@icon('chevron-right')`,
+                },
+                setup: (picker) => {
+                    picker.on('selected', (date1) => {
+                        updateFilters()
+                    });
+                },
+    	    }));
+        });
         function toggleChecks(e){
             $('.match-select').prop('checked', e.checked)
         }

@@ -1,52 +1,50 @@
 @extends('layouts.layout')
 @section('body')
-    <header class="navbar navbar-expand-md navbar-light d-print-none">
-        <div class="container-xl">
-            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbar-menu" aria-expanded="false">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-                <img src="{{ asset('logo.png') }}" height="32" alt="Logo" class="navbar-brand-image">
-                <span>
-               &nbsp; {{ config('app.name') }}
-               </span>
-            </h1>
-            <div class="navbar-nav flex-row order-md-last">
-
-                <div class="nav-item dropdown dropdown-menu-arrow">
-                    <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
-                       aria-label="Open user menu" aria-expanded="false">
-                            <span class="avatar"
-                                  style="background-image: url(https://www.gravatar.com/avatar/{{ md5(auth()->user()->email) }}?d=retro)"></span>
-                        <div class="d-none d-xl-block mx-1">
-                            <div class="text-muted">{{ auth()->user()->name }}</div>
-                            <div>{{ auth()->user()->email }}</div>
-                        </div>
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                          style="display: none;">
-                        @csrf
-                    </form>
-                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                        <a href="{{ route('profile.edit') }}" class="dropdown-item">Profile</a>
-                        <a href="#" onclick="document.getElementById('logout-form').submit();"
-                           class="dropdown-item">Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
     <div class="navbar-expand-md">
-        <div class="collapse navbar-collapse" id="navbar-menu">
-            <div class="navbar navbar-dark">
+        <div class="collapse navbar-collapse d-print-none" id="navbar-menu">
+            <div class="navbar navbar-light">
                 <div class="container-xl">
-                    <ul class="navbar-nav">
-                        {!! sidebar_list_item('match','Upcoming Matches','calendar-stats') !!}
-                        {!! sidebar_list_item('match.ended','Finished Matches','calendar-event') !!}
-                        {!! sidebar_list_drop_down('Administration','adjustments', [['Users','user.index','users']]) !!}
-                    </ul>
-                </div>
+                    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-expanded="false">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+                        <img src="{{ asset('logo.png') }}" height="32" alt="Logo" class="navbar-brand-image">
+                        <span>
+                            &nbsp; {{ config('app.name') }}
+                        </span>
+                    </h1>
+                    <div class="collapse navbar-collapse">
+                        <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
+                            <ul class="navbar-nav">
+                                {!! sidebar_list_item('match','Upcoming Matches','calendar-stats') !!}
+                                {!! sidebar_list_item('match.ended','Finished Matches','calendar-event') !!}
+                                {!! sidebar_list_drop_down('Administration','adjustments', [['Users','user.index','users']]) !!}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="navbar-nav flex-row order-md-last">
+                            <div class="nav-item dropdown dropdown-menu-arrow">
+                                <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
+                                aria-label="Open user menu" aria-expanded="false">
+                                        <span class="avatar"
+                                            style="background-image: url(https://www.gravatar.com/avatar/{{ md5(auth()->user()->email) }}?d=retro)"></span>
+                                    <div class="d-none d-xl-block mx-1">
+                                        <div class="text-muted">{{ auth()->user()->name }}</div>
+                                        <div>{{ auth()->user()->email }}</div>
+                                    </div>
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <a href="{{ route('profile.edit') }}" class="dropdown-item">Profile</a>
+                                    <a href="#" onclick="document.getElementById('logout-form').submit();"
+                                    class="dropdown-item">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>

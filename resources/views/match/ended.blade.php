@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 mt-2">
-                    <label class="form-label">Odds Over</label>
+                    <label class="form-label">Odds</label>
                     <div class="input-group">
                         <span class="input-group-text"> 1 </span>
                         <input type="number" name="odds[home]" onchange="updateFilters()" class="form-control form-filter" placeholder="Home Team Odds" value="{{ request('odds')['home'] ?? 0 }}">
@@ -52,11 +52,32 @@
                       </span>
                     </div>
                 </div>
+                <div class="col-lg-3 col-md-6 mt-2">
+                    <div class="form-label">Match Result</div>
+                    <div class="d-flex flex-colums">
+                        <div class="mt-2">
+                            <label class="form-check form-check-inline">
+                                <input class="form-check-input" name="result[home]" type="checkbox">
+                                <span class="form-check-label">Home</span>
+                            </label>
+                            <label class="form-check form-check-inline">
+                                <input class="form-check-input" name="result[draw]" type="checkbox">
+                                <span class="form-check-label">Draw</span>
+                            </label>
+                            <label class="form-check form-check-inline">
+                                <input class="form-check-input" name="result[away]" type="checkbox">
+                                <span class="form-check-label">Away</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        
         <table class="table card-table mb-2">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>
                         Category
                     </th>
@@ -81,8 +102,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($matches as $match)
+                @foreach ($matches as $x => $match)
                     <tr>
+                        <td>{{ $x+1 }}</td>
                         <td>{{$match->category}}</td>
                         <td>{{$match->competition}}</td>
                         <td>{{$match->home_team}}</td>
@@ -99,6 +121,7 @@
             {{ $matches->appends(request()->except('page'))->render() }}
             </div>
         </div>
+    </div>
 @stop
 
 @section('js_after')

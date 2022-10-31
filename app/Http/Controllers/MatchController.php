@@ -17,10 +17,13 @@ class MatchController extends Controller
     public function index(Request $request)
     {
         if (count($request->all()) === 0) {
-            return redirect(route('match', ['state' =>'pending']));
+            return redirect(route('match', ['state' =>'pending','match_date' => now()->toDateString()]));
         }
         $matches = Match::query()
-                        ->where('starts_at', '>=', now()->utc()->startOfDay())
+                        ->when($request->match_date, function ($query) use ($request) {
+                            $date = Carbon::parse($request->match_date)->utc();
+                            $query->whereBetween('starts_at', [$date->clone()->startOfDay(),$date->endOfDay()]);
+                        })
                         ->when($request->category, function ($query) use ($request) {
                             $query->where('category', $request->category);
                         })
@@ -33,11 +36,13 @@ class MatchController extends Controller
                         ->whereHas('odds', function ($query) use ($request) {
                             if ($request->has('odds')) {
                                 $query->whereRaw(\DB::raw(sprintf(
-                                    "((name = matches.home_team and val >= %s) or (name = '%s' and val >= %s) or (name =  matches.away_team and val >= %s))",
-                                    $request->odds['home'] ?? 0,
-                                    'Draw',
+                                    "((name = matches.home_team and val %s %s) or (name = 'Draw' and val %s %s) or (name =  matches.away_team and val %s %s))",
+                                    $request->odds['home'] >= 0 ? '>=' : '<=',
+                                    abs($request->odds['home'] ?? 0),
+                                    $request->odds['draw'] >= 0 ? '>=' : '<=',
                                     $request->odds['draw'] ?? 0,
-                                    $request->odds['away'] ?? 0
+                                    $request->odds['away'] >= 0 ? '>=' : '<=',
+                                    abs($request->odds['away'] ?? 0)
                                 )));
                             }
                         }, '>=', 3)
@@ -68,11 +73,13 @@ class MatchController extends Controller
         ->whereHas('odds', function ($query) use ($request) {
             if ($request->has('odds')) {
                 $query->whereRaw(\DB::raw(sprintf(
-                    "((name = matches.home_team and val >= %s) or (name = '%s' and val >= %s) or (name =  matches.away_team and val >= %s))",
-                    $request->odds['home'],
-                    'Draw',
-                    $request->odds['draw'],
-                    $request->odds['away']
+                    "((name = matches.home_team and val %s %s) or (name = 'Draw' and val %s %s) or (name =  matches.away_team and val %s %s))",
+                    $request->odds['home'] >= 0 ? '>=' : '<=',
+                    abs($request->odds['home'] ?? 0),
+                    $request->odds['draw'] >= 0 ? '>=' : '<=',
+                    $request->odds['draw'] ?? 0,
+                    $request->odds['away'] >= 0 ? '>=' : '<=',
+                    abs($request->odds['away'] ?? 0)
                 )));
             }
         }, '>=', 3)

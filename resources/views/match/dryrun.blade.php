@@ -10,6 +10,7 @@
         <table class="table card-table mb-2">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>
                         Home Team
                     </th>
@@ -31,8 +32,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($arbitrage->matches as $run)
+                @foreach ($arbitrage->matches as $x=>$run)
                     <tr>
+                        <td>{{ $x+1}}</td>
                         <td>{{$run->match->home_team}}</td>
                         <td>{{$run->match->away_team}}</td>
                         <td>{{$run->match->starts_at->diffForHumans()}}</td>
@@ -42,7 +44,7 @@
                     </tr>   
                 @endforeach
                 <tr>
-                    <td colspan="5">Total possible winnings</td>
+                    <td colspan="6">Total possible winnings</td>
                     <td>{{$arbitrage->winnings}}</td>
                 </tr>  
             </tbody>
