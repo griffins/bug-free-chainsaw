@@ -85,7 +85,7 @@ class MatchController extends Controller
         }, '>=', 3)
                         ->orderBy('starts_at', 'DESC')
                         ->with('odds')
-                        ->paginate(50);
+                        ->paginate(15);
         $categories = Match::query()->distinct()->pluck('category')->sort();
         $competitions = Match::query()->when($request->category, function ($query) use ($request) {
             $query->where('category', $request->category);

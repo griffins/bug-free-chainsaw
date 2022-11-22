@@ -14,7 +14,9 @@ class AddScoresToMatchesTable extends Migration
     public function up()
     {
         Schema::table('matches', function (Blueprint $table) {
-            //
+            $table->integer('home_team_score')->nullable();
+            $table->integer('away_team_score')->nullable();
+            $table->string('status')->default('pending');
         });
     }
 
@@ -26,9 +28,9 @@ class AddScoresToMatchesTable extends Migration
     public function down()
     {
         Schema::table('matches', function (Blueprint $table) {
-            $table->integer('home_team_score')->nullable();
-            $table->integer('away_team_score')->nullable();
-            $table->string('status')->default('pending');
+            $table->dropColumn('home_team_score');
+            $table->dropColumn('away_team_score');
+            $table->dropColumn('status');
         });
     }
 }
