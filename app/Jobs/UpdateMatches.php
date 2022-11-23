@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use Http;
-use App\Models\Match;
+use App\Models\Game;
 use App\Models\Odd;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -89,14 +89,18 @@ class UpdateMatches implements ShouldQueue
 
     public function upsertMatch($bookmaker, $payload, $category, $competition, $odds)
     {
-        $match = Match::query()->firstOrNew($payload);
+        $match = Game::query()->firstOrNew($payload);
         $match->competition = $competition;
         $match->category = $category;
-        $match->save();
         foreach ($odds as $selection) {
-            $odd = Odd::query()->firstOrNew(['name' => $selection->name, 'bookmaker' => $bookmaker, 'match_id' => $match->id]);
-            $odd->val = $selection->odds;
-            $match->odds()->save($odd);
+            if ($selection->name === $match->home_team) {
+                $match->odds_home = $selection->odds;
+            } elseif ($selection->name === $match->away_team) {
+                $match->odds_away = $selection->odds;
+            } elseif ($selection->name === 'Draw') {
+                $match->odds_draw = $selection->odds;
+            }
         }
+        $match->save();
     }
 }

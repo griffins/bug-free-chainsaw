@@ -23,28 +23,31 @@
                         </div>
                     </div>
                     <div class="navbar-nav flex-row order-md-last">
-                            <div class="nav-item dropdown dropdown-menu-arrow">
-                                <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
-                                aria-label="Open user menu" aria-expanded="false">
-                                        <span class="avatar"
-                                            style="background-image: url(https://www.gravatar.com/avatar/{{ md5(auth()->user()->email) }}?d=retro)"></span>
-                                    <div class="d-none d-xl-block mx-1">
-                                        <div class="text-muted">{{ auth()->user()->name }}</div>
-                                        <div>{{ auth()->user()->email }}</div>
-                                    </div>
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                    style="display: none;">
-                                    @csrf
-                                </form>
-                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <a href="{{ route('profile.edit') }}" class="dropdown-item">Profile</a>
-                                    <a href="#" onclick="document.getElementById('logout-form').submit();"
-                                    class="dropdown-item">Logout</a>
+                        <a href="javascript: void(0)" class="nav-link mx-2 hide-theme-dark" onclick="toggleTheme('dark')" title="Enable dark mode">@icon('moon')</a>
+                        <a href="javascript: void(0)" class="nav-link mx-2 hide-theme-light" onclick="toggleTheme('light')" title="Enable light mode">@icon('sun')</a>
+
+                        <div class="nav-item dropdown dropdown-menu-arrow">
+                            <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
+                            aria-label="Open user menu" aria-expanded="false">
+                                    <span class="avatar avatar-sm"
+                                        style="background-image: url(https://www.gravatar.com/avatar/{{ md5(auth()->user()->email) }}?d=retro)"></span>
+                                <div class="d-none d-xl-block mx-1">
+                                    <div class="text-muted">{{ auth()->user()->name }}</div>
+                                    <div>{{ auth()->user()->email }}</div>
                                 </div>
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                style="display: none;">
+                                @csrf
+                            </form>
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <a href="{{ route('profile.edit') }}" class="dropdown-item">Profile</a>
+                                <a href="#" onclick="document.getElementById('logout-form').submit();"
+                                class="dropdown-item">Logout</a>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -95,12 +98,12 @@
                         </div>
                     @endif
                 </div>
-            </main>
-            <div class="container-xl">
+
                 <div class="page-body">
                     @yield('content')
                 </div>
-            </div>
+            </main>
+
             <div class="mb-n3 mt-7 d-print-none">
                 <footer class="footer">
                     <div class="container">

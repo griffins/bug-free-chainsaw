@@ -38,7 +38,7 @@
                         <td>{{$run->match->home_team}}</td>
                         <td>{{$run->match->away_team}}</td>
                         <td>{{$run->match->starts_at->diffForHumans()}}</td>
-                        <td><span class="badge bg-success">{{odd_format($run->match->home_team_odds,2)}} </span> - <span class="badge bg-primary">{{odd_format($run->match->draw_odds,2)}}</span> - <span class="badge bg-danger">{{odd_format($run->match->away_team_odds,2)}}</span></td>
+                        <td><span class="badge bg-success">{{odd_format($run->match->odds_home,2)}} </span> - <span class="badge bg-primary">{{odd_format($run->match->odds_draw,2)}}</span> - <span class="badge bg-danger">{{odd_format($run->match->odds_away,2)}}</span></td>
                         <td>{{$run->match->home_team_score}} - {{ $run->match->away_team_score }} {{$run->match->result}}</td>
                         <td>{{$run->winnings($arbitrage) ?? '-' }}</td>
                     </tr>   

@@ -18,7 +18,7 @@ class CreateOddsTable extends Migration
             $table->bigInteger('match_id');
             $table->string('name');
             $table->string('bookmaker');
-            $table->decimal("val",5,2);
+            $table->decimal("val", 5, 2);
             $table->timestamps();
         });
     }

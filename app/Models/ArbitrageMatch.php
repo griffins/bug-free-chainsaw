@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ArbitrageRun;
-use App\Models\Match;
+use App\Models\Game;
 
 class ArbitrageMatch extends Model
 {
@@ -20,7 +20,7 @@ class ArbitrageMatch extends Model
 
     public function match()
     {
-        return $this->belongsTo(Match::class);
+        return $this->belongsTo(Game::class);
     }
 
     public function winnings($run)

@@ -122,7 +122,7 @@
                             <td>{{$match->home_team}}</td>
                             <td>{{$match->away_team}}</td>
                             <td>{{ $match->starts_at->diffForHumans()}}</td>
-                            <td><span class="badge bg-success">{{odd_format($match->home_team_odds,2)}} </span> - <span class="badge bg-primary">{{odd_format($match->draw_odds,2)}}</span> - <span class="badge bg-danger">{{odd_format($match->away_team_odds,2)}}</span></td>
+                            <td><span class="badge bg-success">{{odd_format($match->odds_home,2)}} </span> - <span class="badge bg-primary">{{odd_format($match->odds_draw,2)}}</span> - <span class="badge bg-danger">{{odd_format($match->odds_away,2)}}</span></td>
                         </tr>   
                     @endforeach
                 </tbody>

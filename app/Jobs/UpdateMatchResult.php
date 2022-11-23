@@ -5,7 +5,7 @@ namespace App\Jobs;
 use Http;
 use Normalizer;
 use Carbon\Carbon;
-use App\Models\Match;
+use App\Models\Game;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -88,7 +88,7 @@ class UpdateMatchResult implements ShouldQueue
 
     public function updateScores($home, $away, $time, $scores, $postponed = false)
     {
-        $matches = Match::query()
+        $matches = Game::query()
         ->where('home_team', $home)
         ->where('away_team', $away)
         ->where('starts_at', $time)
