@@ -79,7 +79,7 @@ class MatchController extends Controller
              )));
          })
         ->orderBy('starts_at', 'DESC')
-        ->paginate(15);
+        ->paginate(50);
 
         $categories = Game::query()->distinct()->pluck('category')->sort();
         $competitions = Game::query()->when($request->category, function ($query) use ($request) {
