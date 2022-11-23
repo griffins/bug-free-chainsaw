@@ -14,7 +14,7 @@ class MigrateOddsDataToMatches extends Migration
      */
     public function up()
     {
-        DB::table('odds')->join('matches', 'match_id', 'matches.id')->orderBy('created_at')->chunk(100, function ($odds) {
+        DB::table('odds')->join('matches', 'match_id', 'matches.id')->orderBy('odds.created_at')->chunk(100, function ($odds) {
             foreach ($odds as $odd) {
                 if ($odd->name === $odd->home_team) {
                     DB::table('matches')->where('id', $odd->match_id)->update(['odds_home' => $odd->val]);
